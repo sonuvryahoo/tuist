@@ -75,7 +75,7 @@ public class GitEnvironment: GitEnvironmenting {
     public func githubCredentials() -> Deferred<Future<GithubCredentials?, Error>> {
         Deferred {
             Future<GithubCredentials?, Error> { promise in
-                _ = System.shared.publisher(["echo", "url=https://github.com"], pipedToArguments: ["git", "credentials", "fill"])
+                _ = System.shared.publisher(["echo", "url=https://github.com"], pipedToArguments: ["git", "credential", "fill"])
                     .mapToString()
                     .flatMap { (event: SystemEvent<String>) -> AnyPublisher<GithubCredentials?, Error> in
                         switch event {
@@ -84,7 +84,7 @@ public class GitEnvironment: GitEnvironmenting {
                         case let .standardOutput(outputString):
 //                            protocol=https
 //                            host=github.com
-//                            username=pepibumur
+//                            username=tuist
 //                            password=foo
                             let lines = outputString.split(separator: "\n")
                             let values = lines.reduce(into: [String: String]()) { result, next in
